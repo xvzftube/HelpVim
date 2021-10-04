@@ -45,6 +45,7 @@ if(OutputFoldNames[OptionForFileUse]=="BSMP"):
     data = pd.read_excel(FileNameChosen,sheet_name='Sheet1')
 else:
     data = pd.read_excel(FileNameChosen)
+ 
 #data = pd.read_excel(r"/Users/bekzatajan/Job_ISWS/Bekzat_Python/Latest/Input/sql_output.xlsx")
 data1 = pd.read_excel(ParStFileName)
 data=pd.merge(data,data1,on='record_code',how='left')
@@ -97,19 +98,18 @@ def main():
         if(DidChoose==True):
             if(i in WhatChose==False):
                 continue
+                
         OrderMonthly2=unique(group['Month'])
         OrderMonthly = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'
         r = re.compile('|'.join([r'\b%s\b' % w for w in OrderMonthly2]), flags=re.I)
         OrderMonthlyInPlot=r.findall(OrderMonthly)
-        
-        
         #pdf = PdfPages(i+'EDAplots'+'.pdf')
         pdf = PdfPages(i+'EDAplots'+'.pdf')
         print(i)
-        
         plotData(i,group, pdf, OrderMonthlyInPlot)
         pdf.close()
 
+        
 def plotData(i,group, pdf, OrderMonthlyInPlot):
     #grouped.get_group("Chloride (mgL)")
     sns.set(style="ticks")
@@ -118,28 +118,23 @@ def plotData(i,group, pdf, OrderMonthlyInPlot):
         'medianprops':{'color':'black'},
         'whiskerprops':{'color':'black'},
         'capprops':{'color':'black'}}
-    
     fig1 = plt.figure(figsize=(11.7,8.27), dpi=100)
     plt.subplots_adjust(left=0.08, right=0.95, top=0.9, bottom=0.12,wspace=0.19, hspace = 0.24)
     plt.suptitle(group['EDA_PlotsTitle'].value_counts().index.tolist()[0],fontweight ='bold',wrap=True,x=0.5,y=0.95)
-    
       #plt.subplots_adjust(left=0.1, right=0.98, top=0.92, bottom=0.06,hspace=0, wspace=0.05)
     ax1 = plt.subplot2grid((2, 2), (0, 0), rowspan = 1, colspan=1)
-    
     plot1 = sns.stripplot(ax=ax1,x='Mon_Year', y='Result_Value', data=group, jitter=False, size = 1.5, color="black")
     plot1.set_xlabel("", size = 9)
     #plt.xticks(rotation = 0)
     #ax1.xaxis.set_major_locator(mdates.MonthLocator(interval=1))
     #ax1.xaxis.set_major_locator(AutoMajorLocator())
     ax1.xaxis.set_major_locator(AutoLocator())
-    
     #ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
     #ax1.xaxis.set_minor_locator(mdates.MonthLocator(interval=1))
     #ax1.xaxis.set_minor_locator(AutoMinorLocator())
     #plot1.set_xlim([datetime.date(2014, 1, 26), datetime.date(2014, 2, 1)])
     # Title of the page
     #plt.axis('off')
-    
     plot1.set_ylabel(group['ParameterPlotName'].value_counts().index.tolist()[0], size = 10)
     plt.xticks(fontsize=7)
     plt.yticks(fontsize=8)
@@ -148,7 +143,6 @@ def plotData(i,group, pdf, OrderMonthlyInPlot):
     plt.xticks(rotation = 30)
     #ax1.set_title('Data Samples', fontweight ='bold', pad =12)
     plt.title('(a) Data Samples', y=-0.22, fontsize=10)
-    
     ax2 = plt.subplot2grid((2, 2), (0, 1), rowspan = 1, colspan=1)
     plot2 = sns.boxplot(ax=ax2, x='Month', y='Result_Value', data = group, linewidth=0.5,color='w', showfliers=False,  width = 0.6, **PROPS, order = OrderMonthlyInPlot)#, positions=[0,2,4,6])
     plot2.set_xlabel("", size = 10)
@@ -160,7 +154,6 @@ def plotData(i,group, pdf, OrderMonthlyInPlot):
     #ax2.set_title('Panel 2', fontweight ='bold', pad =15)
     #ax2.set_title('Monthly Boxplots', fontweight ='bold', pad =12)
     plt.title('(b) Monthly Boxplots', y=-0.2, fontsize=10)
-    
     ax3 = plt.subplot2grid((2, 2), (1, 0), rowspan = 1, colspan=1)
     plot3 = sns.boxplot(ax=ax3, x='Year', y='Result_Value', data = group, linewidth=0.5,color='w', showfliers=False,  width = 0.6, **PROPS)#, positions=[0,2,4,6])
     plot3.set_xlabel("", size = 10)
@@ -172,7 +165,6 @@ def plotData(i,group, pdf, OrderMonthlyInPlot):
     #ax3.set_title('Panel 3', fontweight ='bold', pad =15)
     #ax3.set_title('Annual Boxplots', fontweight ='bold', pad =12)
     plt.title('(c) Annual Boxplots', y=-0.24, fontsize=10)
-    
     ax4 = plt.subplot2grid((2, 2), (1, 1), rowspan = 1, colspan=1)
     x = group['Result_Value']
     plt.xticks(fontsize=7)
@@ -190,7 +182,6 @@ def plotData(i,group, pdf, OrderMonthlyInPlot):
     plot4.set_ylabel("Cumulative Frequency", size = 10)
     #ax4.set_title('Empirical CDF', fontweight ='bold', pad =12)
     plt.title('(d) Empirical CDF', y=-0.24, fontsize=10)
-    
     pdf.savefig(fig1)
     plt.close()
     
