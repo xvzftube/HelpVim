@@ -34,7 +34,7 @@ if(DidChoose==True):
     WhatChose=[20500110, 2, 3]
 
 #AUTO GRAB BSMP CREP FOX SQL:
-OptionForFileUse=3 #CHOOSE FROM THE PREVIOUS LINE (0-5)<<
+OptionForFileUse=2 #CHOOSE FROM THE PREVIOUS LINE (0-5)<<
 
 FileNameIs=["ICoastalDB_SQL_out_AUTO_pid_WQ.xlsx",
             "ICoastalDB_SQL_out_GRAB_pid_WQ.xlsx",
