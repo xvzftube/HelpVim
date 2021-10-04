@@ -8,20 +8,6 @@ from ipywidgets import widgets
 import matplotlib.image as mpimg
 import os
 
-import matplotlib
-import scipy as scipy
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
-from PIL import Image
-from pylab import *
-import matplotlib.patches as ptch
-import datetime as dt
-import matplotlib.dates as mdates
-from statsmodels.distributions.empirical_distribution import ECDF
-from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
-
-
-
 
 os.getcwd()
 #Put the directory where you have the xlsx files and figures:
@@ -91,7 +77,17 @@ data["Result_Value"] = pd.to_numeric(data.Result_Value, errors='coerce')
 
 os.chdir(OutputDir)
 
-
+import matplotlib
+import scipy as scipy
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+from PIL import Image
+from pylab import *
+import matplotlib.patches as ptch
+import datetime as dt
+import matplotlib.dates as mdates
+from statsmodels.distributions.empirical_distribution import ECDF
+from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
 
 def main():
     #grouped_df = data_concatenated.groupby('ParameterPlotName')
